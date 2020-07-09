@@ -1,7 +1,7 @@
 package com.kovylin.kovylin_bot.cache;
 
 import com.kovylin.kovylin_bot.botapi.BotState;
-import com.kovylin.kovylin_bot.botapi.handlers.fillingprofile.UserDataProfile;
+import com.kovylin.kovylin_bot.botapi.handlers.UserDataProfile;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class UserDataCache implements DataCache {
     public BotState getCurrentUserBotState(int userId) {
         BotState botState = botUserStates.get(userId);
         if (botState == null) {
-            botState = BotState.ASK_DESTINY;
+            botState = BotState.CHOOSE_BRAND;
         }
         return botState;
     }

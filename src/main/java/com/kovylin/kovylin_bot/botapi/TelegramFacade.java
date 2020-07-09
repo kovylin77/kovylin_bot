@@ -38,13 +38,7 @@ public class TelegramFacade {
         SendMessage replyMessage;
         switch (inputMsg) {
             case "/start":
-                botState = BotState.ASK_DESTINY;
-                break;
-            case "Получить предсказание":
-                botState = BotState.FILLING_PROFILE;
-                break;
-            case "Помощь":
-                botState = BotState.SHOW_HELP_MENU;
+                botState = BotState.START;
                 break;
             default:
                 botState = userDataCache.getCurrentUserBotState(userId);

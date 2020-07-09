@@ -1,7 +1,7 @@
 package com.kovylin.kovylin_bot.cache;
 
 import com.kovylin.kovylin_bot.botapi.BotState;
-import com.kovylin.kovylin_bot.botapi.handlers.fillingprofile.UserDataProfile;
+import com.kovylin.kovylin_bot.botapi.handlers.UserDataProfile;
 
 public interface DataCache {
 

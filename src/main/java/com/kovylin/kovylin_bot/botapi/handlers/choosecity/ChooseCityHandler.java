@@ -1,7 +1,8 @@
-package com.kovylin.kovylin_bot.botapi.handlers.askdestiny;
+package com.kovylin.kovylin_bot.botapi.handlers.choosecity;
 
 import com.kovylin.kovylin_bot.botapi.BotState;
 import com.kovylin.kovylin_bot.botapi.InputMessageHandler;
+import com.kovylin.kovylin_bot.botapi.handlers.UserDataProfile;
 import com.kovylin.kovylin_bot.cache.UserDataCache;
 import com.kovylin.kovylin_bot.service.ReplyMessageService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,16 +12,13 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Slf4j
 @Component
-public class AskDestinyHandler implements InputMessageHandler {
+public class ChooseCityHandler implements InputMessageHandler {
 
     private UserDataCache userDataCache;
 
-    private ReplyMessageService messagesService;
-
-    public AskDestinyHandler(UserDataCache userDataCache,
+    public ChooseCityHandler(UserDataCache userDataCache,
                              ReplyMessageService messagesService) {
         this.userDataCache = userDataCache;
-        this.messagesService = messagesService;
     }
 
     @Override
@@ -30,16 +28,20 @@ public class AskDestinyHandler implements InputMessageHandler {
 
     @Override
     public BotState getHandlerName() {
-        return BotState.ASK_DESTINY;
+        return BotState.CHOOSE_CITY;
     }
 
     private SendMessage processUsersInput(Message inputMsg) {
         int userId = inputMsg.getFrom().getId();
         long chatId = inputMsg.getChatId();
 
-        SendMessage replyToUser = messagesService.getReplyMessage(chatId,"reply.askDestiny");
-        userDataCache.setCurrentUserBotState(userId, BotState.FILLING_PROFILE);
+        UserDataProfile profile = userDataCache.getUserDataProfile(userId);
+        profile.setCity(inputMsg.getText());
+        userDataCache.saveUserDataProfile(userId, profile);
+        userDataCache.setCurrentUserBotState(userId, BotState.START);
 
-        return replyToUser;
+        return new SendMessage(chatId,
+                "Вы выбрали " + profile.getBrand() + " " + profile.getModel() + " в области(ях) " + profile.getCity() +
+                "\nДля перезапуска бота введите /start");
     }
 }
