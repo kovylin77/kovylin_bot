@@ -12,4 +12,6 @@ public interface DataCache {
     UserDataProfile getUserDataProfile(int userId);
 
     void saveUserDataProfile(int userId, UserDataProfile userDataProfile);
+
+    void clearUserDataProfile(int userId);
 }

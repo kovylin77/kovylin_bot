@@ -42,4 +42,9 @@ public class UserDataCache implements DataCache {
     public void saveUserDataProfile(int userId, UserDataProfile userDataProfile) {
         usersDataProfile.put(userId, userDataProfile);
     }
+
+    @Override
+    public void clearUserDataProfile(int userId) {
+        usersDataProfile.remove(userId);
+    }
 }
